@@ -50,29 +50,33 @@
         }
     </style>
 
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-MGR9385X');</script>
+    <!-- End Google Tag Manager -->
 
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-MGR9385X');</script>
-<!-- End Google Tag Manager -->
-
-    
+    <!-- dataLayer Initialization -->
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        dataLayer.push({
+            'event': 'TEST_pageView',
+            'pageTitle': 'Test Casino Page',
+            'pageCategory': 'casino',
+            'pageType': 'landingPage'
+        });
+    </script>
     
 </head>
 <body>
 
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MGR9385X"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->    
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MGR9385X"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->    
 
-
-
-    
-    
     <h1>Welcome to the Casino!</h1>
 
     <div class="casino-container">
@@ -80,22 +84,34 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="slot-machine">
             <h2>Slot Machine</h2>
             <img src="https://via.placeholder.com/100x100?text=🎰" alt="Slot Machine">
-            <button>Spin</button>
+            <button onclick="trackButtonClick('slotMachine', 'spin')">Spin</button>
         </div>
 
         <!-- Cards Section -->
         <div class="cards">
             <h2>Blackjack</h2>
             <img src="https://via.placeholder.com/100x100?text=🂡🂱" alt="Cards">
-            <button>Play Cards</button>
+            <button onclick="trackButtonClick('blackjack', 'playCards')">Play Cards</button>
         </div>
 
         <!-- Chips Section -->
         <div class="chips">
             <h2>Casino Chips</h2>
             <img src="https://via.placeholder.com/100x100?text=💰" alt="Chips">
-            <button>Place Bet</button>
+            <button onclick="trackButtonClick('chips', 'placeBet')">Place Bet</button>
         </div>
     </div>
+
+    <!-- Event Tracking Function -->
+    <script>
+        function trackButtonClick(gameType, action) {
+            dataLayer.push({
+                'event': 'gameAction',
+                'gameType': gameType,
+                'action': action
+            });
+        }
+    </script>
+    
 </body>
 </html>
