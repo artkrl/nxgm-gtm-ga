@@ -62,13 +62,14 @@
     <script>
         window.dataLayer = window.dataLayer || [];
         dataLayer.push({
-            'event': 'TEST_pageView',
+            'event': 'pageView',
             'pageTitle': 'Test Casino Page',
             'pageCategory': 'casino',
-            'pageType': 'landingPage'
+            'pageType': 'landingPage',
+            'userID': 'user12345'  // Статичний userID
         });
     </script>
-    
+
 </head>
 <body>
 
@@ -105,11 +106,14 @@
     <!-- Event Tracking Function -->
     <script>
         function trackButtonClick(gameType, action) {
+            // Додавання події в dataLayer при кліку на кнопки
             dataLayer.push({
                 'event': 'gameAction',
-                'gameType': gameType,
-                'action': action
+                'userID': 'user12345',  // Статичний userID
+                'gameType': gameType,    // Тип гри (slotMachine, blackjack, chips)
+                'action': action         // Дія (spin, playCards, placeBet)
             });
+            console.log('Tracked event:', gameType, action);  // Для відлагодження
         }
     </script>
     
