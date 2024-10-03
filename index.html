@@ -59,14 +59,19 @@
     <!-- End Google Tag Manager -->
 
     <!-- dataLayer Initialization -->
-    <script>
+<script>
         window.dataLayer = window.dataLayer || [];
+dataLayer.push({
+        'userID': 'user12345'  // Статичний або динамічний ID користувача
+    });
+</script>
+    
+    <script>
         dataLayer.push({
             'event': 'pageView',
             'pageTitle': 'Test Casino Page',
             'pageCategory': 'casino',
-            'pageType': 'landingPage',
-            'userID': 'user12345'  // Статичний userID
+            'pageType': 'landingPage'
         });
     </script>
 
