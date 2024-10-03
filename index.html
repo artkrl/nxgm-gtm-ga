@@ -7,46 +7,56 @@
     <title>Test Casino Page</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #1a1a1a;
-            color: #fff;
+            font-family: 'Arial', sans-serif;
+            background-color: #121212;
+            color: #ffffff;
             text-align: center;
+            margin: 0;
+            padding: 0;
         }
         h1 {
-            color: gold;
+            color: #FFD700; /* Gold color */
             text-shadow: 2px 2px 4px #000;
+            margin-top: 20px;
+            font-size: 36px;
         }
         .casino-container {
-            margin-top: 50px;
+            margin: 50px auto;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
         }
-        .slot-machine, .cards, .chips {
-            margin: 20px;
-            display: inline-block;
-            border: 2px solid gold;
-            border-radius: 10px;
+        .game-card {
+            background-color: #222;
+            border-radius: 15px;
             padding: 20px;
-            background-color: #333;
-            width: 200px;
-            height: 250px;
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+            width: 250px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.6);
         }
         img {
             width: 100px;
             height: auto;
+            margin: 15px 0;
         }
         button {
-            background-color: gold;
+            background-color: #FFD700; /* Gold */
             color: #333;
             padding: 10px 20px;
             border: none;
             border-radius: 5px;
             font-size: 16px;
-            margin-top: 20px;
             cursor: pointer;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
         button:hover {
-            background-color: darkorange;
+            background-color: #FFBF00; /* Darker Gold */
         }
     </style>
 
@@ -59,12 +69,12 @@
     <!-- End Google Tag Manager -->
 
     <!-- dataLayer Initialization -->
-<script>
+    <script>
         window.dataLayer = window.dataLayer || [];
-dataLayer.push({
-        'userID': '77777-88888'  // Статичний або динамічний ID користувача
-    });
-</script>
+        dataLayer.push({
+            'userID': '77777-88888'  // Статичний або динамічний ID користувача
+        });
+    </script>
     
     <script>
         dataLayer.push({
@@ -87,21 +97,21 @@ dataLayer.push({
 
     <div class="casino-container">
         <!-- Slot Machine Section -->
-        <div class="slot-machine">
+        <div class="game-card">
             <h2>Slot Machine</h2>
             <img src="https://via.placeholder.com/100x100?text=🎰" alt="Slot Machine">
             <button onclick="trackButtonClick('slotMachine', 'spin')">Spin</button>
         </div>
 
         <!-- Cards Section -->
-        <div class="cards">
+        <div class="game-card">
             <h2>Blackjack</h2>
             <img src="https://via.placeholder.com/100x100?text=🂡🂱" alt="Cards">
             <button onclick="trackButtonClick('blackjack', 'playCards')">Play Cards</button>
         </div>
 
         <!-- Chips Section -->
-        <div class="chips">
+        <div class="game-card">
             <h2>Casino Chips</h2>
             <img src="https://via.placeholder.com/100x100?text=💰" alt="Chips">
             <button onclick="trackButtonClick('chips', 'placeBet')">Place Bet</button>
