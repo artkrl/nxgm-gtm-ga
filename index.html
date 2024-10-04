@@ -20,14 +20,14 @@
             margin-top: 20px;
             font-size: 36px;
         }
-        .casino-container {
+        .casino-container, .test-section {
             margin: 50px auto;
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
             gap: 30px;
         }
-        .game-card {
+        .game-card, .test-card {
             background-color: #222;
             border-radius: 15px;
             padding: 20px;
@@ -35,7 +35,7 @@
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
             transition: transform 0.2s, box-shadow 0.2s;
         }
-        .game-card:hover {
+        .game-card:hover, .test-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 12px 24px rgba(0, 0, 0, 0.6);
         }
@@ -58,6 +58,19 @@
         button:hover {
             background-color: #FFBF00; /* Darker Gold */
         }
+        .test-card input[type="text"], .test-card input[type="checkbox"] {
+            margin: 10px 0;
+        }
+        .test-card input[type="text"] {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            width: 100%;
+        }
+        .test-card label {
+            display: block;
+            margin: 10px 0;
+        }
     </style>
 
     <!-- Google Tag Manager -->
@@ -72,7 +85,7 @@
     <script>
         window.dataLayer = window.dataLayer || [];
         dataLayer.push({
-            'userID': '77777-88888'  // Статичний або динамічний ID користувача
+            'userID': '77777-88888'  // Static or dynamic user ID
         });
     </script>
     
@@ -103,14 +116,14 @@
             <button onclick="trackButtonClick('slotMachine', 'spin')">Spin</button>
         </div>
 
-        <!-- Cards Section -->
+        <!-- Blackjack Section -->
         <div class="game-card">
             <h2>Blackjack</h2>
-            <img src="https://via.placeholder.com/100x100?text=🂡🂱" alt="Cards">
+            <img src="https://via.placeholder.com/100x100?text=🂡🂱" alt="Blackjack">
             <button onclick="trackButtonClick('blackjack', 'playCards')">Play Cards</button>
         </div>
 
-        <!-- Chips Section -->
+        <!-- Casino Chips Section -->
         <div class="game-card">
             <h2>Casino Chips</h2>
             <img src="https://via.placeholder.com/100x100?text=💰" alt="Chips">
@@ -118,16 +131,46 @@
         </div>
     </div>
 
-    <!-- Event Tracking Function -->
+    <!-- Testing Section -->
+    <div class="test-section">
+        <div class="test-card">
+            <h2>Testing Inputs</h2>
+            <input type="text" placeholder="Enter your name" id="nameInput" oninput="trackInputChange('name', this.value)">
+            <label>
+                <input type="checkbox" id="subscribeCheckbox" onclick="trackCheckboxClick('subscribe', this.checked)">
+                Subscribe to newsletter
+            </label>
+            <button onclick="trackButtonClick('testSection', 'submit')">Submit</button>
+        </div>
+    </div>
+
+    <!-- Event Tracking Functions -->
     <script>
-        function trackButtonClick(gameType, action) {
-            // Додавання події в dataLayer при кліку на кнопки
+        function trackButtonClick(section, action) {
             dataLayer.push({
-                'event': 'gameAction',
-                'gameType': gameType,    // Тип гри (slotMachine, blackjack, chips)
-                'action': action         // Дія (spin, playCards, placeBet)
+                'event': 'buttonClick',
+                'section': section,
+                'action': action
             });
-            console.log('Tracked event:', gameType, action);  // Для відлагодження
+            console.log('Tracked button click:', section, action);
+        }
+
+        function trackInputChange(inputName, value) {
+            dataLayer.push({
+                'event': 'inputChange',
+                'inputName': inputName,
+                'inputValue': value
+            });
+            console.log('Tracked input change:', inputName, value);
+        }
+
+        function trackCheckboxClick(checkboxName, isChecked) {
+            dataLayer.push({
+                'event': 'checkboxToggle',
+                'checkboxName': checkboxName,
+                'isChecked': isChecked
+            });
+            console.log('Tracked checkbox toggle:', checkboxName, isChecked);
         }
     </script>
     
