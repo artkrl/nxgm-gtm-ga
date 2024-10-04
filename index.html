@@ -8,7 +8,7 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #121212;
+            background: linear-gradient(45deg, #141414, #1f1f1f);
             color: #ffffff;
             text-align: center;
             margin: 0;
@@ -16,47 +16,59 @@
         }
         h1 {
             color: #FFD700; /* Gold color */
-            text-shadow: 2px 2px 4px #000;
-            margin-top: 20px;
-            font-size: 36px;
+            text-shadow: 3px 3px 6px #000;
+            margin-top: 40px;
+            font-size: 42px;
         }
         .casino-container {
-            margin: 50px auto;
+            margin: 60px auto;
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
             gap: 30px;
+            max-width: 1200px;
         }
         .game-card {
-            background-color: #222;
+            background: linear-gradient(145deg, #2a2a2a, #202020);
             border-radius: 15px;
-            padding: 20px;
+            padding: 25px;
             width: 250px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
-            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s, box-shadow 0.3s;
         }
         .game-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.6);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.7);
+        }
+        h2 {
+            font-size: 28px;
+            color: #FFD700;
+            margin-bottom: 10px;
         }
         img {
             width: 100px;
             height: auto;
-            margin: 15px 0;
+            margin: 20px 0;
+            transition: transform 0.3s;
+        }
+        .game-card:hover img {
+            transform: rotate(5deg);
         }
         button {
             background-color: #FFD700; /* Gold */
             color: #333;
-            padding: 10px 20px;
+            padding: 12px 24px;
             border: none;
-            border-radius: 5px;
-            font-size: 16px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
             cursor: pointer;
-            transition: background-color 0.3s;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s, transform 0.3s;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
         }
         button:hover {
             background-color: #FFBF00; /* Darker Gold */
+            transform: scale(1.05);
         }
     </style>
 
@@ -72,7 +84,7 @@
     <script>
         window.dataLayer = window.dataLayer || [];
         dataLayer.push({
-            'userID': '77777-88888'  // Статичний або динамічний ID користувача
+            'userID': '77777-88888'  // Static or dynamic user ID
         });
     </script>
     
@@ -103,33 +115,7 @@
             <button onclick="trackButtonClick('slotMachine', 'spin')">Spin</button>
         </div>
 
-        <!-- Cards Section -->
+        <!-- Blackjack Section -->
         <div class="game-card">
             <h2>Blackjack</h2>
-            <img src="https://via.placeholder.com/100x100?text=🂡🂱" alt="Cards">
-            <button onclick="trackButtonClick('blackjack', 'playCards')">Play Cards</button>
-        </div>
-
-        <!-- Chips Section -->
-        <div class="game-card">
-            <h2>Casino Chips</h2>
-            <img src="https://via.placeholder.com/100x100?text=💰" alt="Chips">
-            <button onclick="trackButtonClick('chips', 'placeBet')">Place Bet</button>
-        </div>
-    </div>
-
-    <!-- Event Tracking Function -->
-    <script>
-        function trackButtonClick(gameType, action) {
-            // Додавання події в dataLayer при кліку на кнопки
-            dataLayer.push({
-                'event': 'gameAction',
-                'gameType': gameType,    // Тип гри (slotMachine, blackjack, chips)
-                'action': action         // Дія (spin, playCards, placeBet)
-            });
-            console.log('Tracked event:', gameType, action);  // Для відлагодження
-        }
-    </script>
-    
-</body>
-</html>
+            <img src="https://via.placeholder.com/100x100?text=🂡🂱" alt="
