@@ -8,51 +8,56 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background: linear-gradient(45deg, #141414, #1f1f1f);
+            background: linear-gradient(45deg, #121212, #1f1f1f);
             color: #ffffff;
             text-align: center;
             margin: 0;
             padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
         }
         h1 {
             color: #FFD700; /* Gold color */
             text-shadow: 3px 3px 6px #000;
-            margin-top: 40px;
             font-size: 42px;
+            margin-bottom: 20px;
         }
         .casino-container {
-            margin: 60px auto;
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 30px;
-            max-width: 1200px;
+            width: 90%;
+            max-width: 1000px;
+            padding: 20px;
         }
         .game-card {
-            background: linear-gradient(145deg, #2a2a2a, #202020);
+            background: #222;
             border-radius: 15px;
-            padding: 25px;
-            width: 250px;
+            padding: 20px;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
             transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
         }
         .game-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.7);
         }
         h2 {
-            font-size: 28px;
+            font-size: 26px;
             color: #FFD700;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
         img {
-            width: 100px;
+            width: 120px;
             height: auto;
-            margin: 20px 0;
+            margin: 15px 0;
             transition: transform 0.3s;
         }
         .game-card:hover img {
-            transform: rotate(5deg);
+            transform: scale(1.05);
         }
         button {
             background-color: #FFD700; /* Gold */
@@ -63,12 +68,15 @@
             font-size: 18px;
             font-weight: bold;
             cursor: pointer;
-            transition: background-color 0.3s, transform 0.3s;
+            transition: background-color 0.3s, transform 0.1s;
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
         }
-        button:hover {
-            background-color: #FFBF00; /* Darker Gold */
-            transform: scale(1.05);
+        button:active {
+            transform: scale(0.95);
+        }
+        button:focus {
+            outline: none;
+            background-color: #ffbf00;
         }
     </style>
 
@@ -111,11 +119,37 @@
         <!-- Slot Machine Section -->
         <div class="game-card">
             <h2>Slot Machine</h2>
-            <img src="https://via.placeholder.com/100x100?text=🎰" alt="Slot Machine">
+            <img src="https://via.placeholder.com/120x120?text=🎰" alt="Slot Machine">
             <button onclick="trackButtonClick('slotMachine', 'spin')">Spin</button>
         </div>
 
         <!-- Blackjack Section -->
         <div class="game-card">
             <h2>Blackjack</h2>
-            <img src="https://via.placeholder.com/100x100?text=🂡🂱" alt="
+            <img src="https://via.placeholder.com/120x120?text=🂡🂱" alt="Blackjack">
+            <button onclick="trackButtonClick('blackjack', 'playCards')">Play Cards</button>
+        </div>
+
+        <!-- Casino Chips Section -->
+        <div class="game-card">
+            <h2>Casino Chips</h2>
+            <img src="https://via.placeholder.com/120x120?text=💰" alt="Casino Chips">
+            <button onclick="trackButtonClick('chips', 'placeBet')">Place Bet</button>
+        </div>
+    </div>
+
+    <!-- Event Tracking Function -->
+    <script>
+        function trackButtonClick(gameType, action) {
+            dataLayer.push({
+                'event': 'gameAction',
+                'gameType': gameType,
+                'action': action
+            });
+            alert(`Action: ${action} on ${gameType} tracked!`);
+            console.log('Tracked event:', gameType, action); // For debugging
+        }
+    </script>
+    
+</body>
+</html>
