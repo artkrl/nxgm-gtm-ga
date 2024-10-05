@@ -33,35 +33,45 @@
     </div>
 
     <script>
+        function isMobileDevice() {
+            const mobileDevices = ['Android', 'webOS', 'iPhone', 'iPad', 'iPod', 'BlackBerry', 'Windows Phone'];
+            return mobileDevices.some(device => navigator.userAgent.includes(device));
+        }
+
         function detectPlatform() {
             const ua = navigator.userAgent || navigator.vendor || window.opera;
 
             // 1. Detect Mobile Web
-            const isMobile = /android|iPad|iPhone|iPod/.test(ua.toLowerCase());
-            if (isMobile) {
+            if (isMobileDevice()) {
                 return "Mobile Web";
             }
 
             // 2. Detect Mobile App (Crypto Wallets)
+            let detectedWallets = [];
+
             const isMetaMaskApp = typeof window.ethereum !== 'undefined' && window.ethereum.isMetaMask && /Mobile/.test(ua);
             const isTrustWalletApp = typeof window.trustwallet !== 'undefined' && /Mobile/.test(ua);
             const isPhantomApp = typeof window.solana !== 'undefined' && window.solana.isPhantom && /Mobile/.test(ua);
             const isRabbyApp = typeof window.ethereum !== 'undefined' && window.ethereum.isRabby && /Mobile/.test(ua);
 
-            if (isMetaMaskApp || isTrustWalletApp || isPhantomApp || isRabbyApp) {
-                return "Mobile App (Crypto Wallet)";
+            if (isMetaMaskApp) detectedWallets.push("MetaMask");
+            if (isTrustWalletApp) detectedWallets.push("Trust Wallet");
+            if (isPhantomApp) detectedWallets.push("Phantom");
+            if (isRabbyApp) detectedWallets.push("Rabby");
+
+            if (detectedWallets.length > 0) {
+                return `Mobile App (Crypto Wallet): ${detectedWallets.join(', ')}`;
             }
 
             // 3. Detect Desktop
-            const isDesktop = !isMobile;
-            if (isDesktop) {
+            if (!isMobileDevice()) {
                 // 4. Detect Desktop with Wallet Extensions
                 const isMetaMaskInstalled = typeof window.ethereum !== 'undefined' && window.ethereum.isMetaMask;
                 const isRabbyInstalled = typeof window.ethereum !== 'undefined' && window.ethereum.isRabby;
                 const isPhantomInstalled = typeof window.solana !== 'undefined' && window.solana.isPhantom;
                 const isTrustWalletInstalled = typeof window.trustwallet !== 'undefined';
 
-                let detectedWallets = [];
+                detectedWallets = [];
                 if (isMetaMaskInstalled) detectedWallets.push("MetaMask");
                 if (isRabbyInstalled) detectedWallets.push("Rabby");
                 if (isPhantomInstalled) detectedWallets.push("Phantom");
@@ -73,6 +83,8 @@
 
                 return "Desktop (No Wallet Extension Detected)";
             }
+
+            return "Unknown Platform";
         }
 
         // Call the function to detect the platform and update the message
@@ -81,4 +93,3 @@
     </script>
 </body>
 </html>
-
