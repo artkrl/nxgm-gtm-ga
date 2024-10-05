@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Криптогаманець детектор</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 50px;
+            background-color: #f4f4f4;
+        }
+        #message {
+            padding: 20px;
+            background-color: #ffeb3b;
+            color: #333;
+            font-size: 1.2em;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            max-width: 600px;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+
+<div id="message">Перевіряю наявність криптогаманця...</div>
+
+<script>
+    function detectWallet() {
+        let messageElement = document.getElementById('message');
+        let message = '';
+
+        // Перевірка MetaMask та інших гаманців, що додають об'єкт ethereum
+        if (typeof window.ethereum !== 'undefined') {
+            message += 'Криптогаманець виявлено! ';
+
+            if (window.ethereum.isMetaMask) {
+                message += 'Це MetaMask. ';
+            } else {
+                message += 'Це не MetaMask, але інший Web3 гаманець. ';
+            }
+        } else {
+            message += 'Криптогаманець не виявлено через об\'єкт ethereum. ';
+        }
+
+        // Перевірка Trust Wallet за наявністю параметра 'dapp' у URL
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('dapp')) {
+            message += 'Користувач використовує Trust Wallet через параметр dapp у URL. ';
+        }
+
+        // Перевірка user agent на Trust Wallet
+        const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+        if (userAgent.includes("TrustWallet")) {
+            message += 'Trust Wallet виявлено через User Agent. ';
+        }
+
+        // Якщо не знайдено жодного гаманця
+        if (!message.includes('виявлено')) {
+            message = 'Криптогаманець не виявлено.';
+        }
+
+        // Виведення повідомлення на екран
+        messageElement.innerText = message;
+    }
+
+    // Викликаємо функцію перевірки при завантаженні сторінки
+    window.onload = detectWallet;
+</script>
+
+</body>
+</html>
