@@ -38,6 +38,8 @@
             
             if (window.ethereum.isMetaMask) {
                 message += 'Це MetaMask. ';
+            } else if (window.ethereum.isRabby) {
+                message += 'Це Rabby Wallet. ';
             } else {
                 message += 'Це інший Web3 гаманець, що використовує ethereum API. ';
             }
