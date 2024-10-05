@@ -32,32 +32,35 @@
         let messageElement = document.getElementById('message');
         let message = '';
 
-        // Перевірка MetaMask та інших гаманців, що додають об'єкт ethereum
+        // Перевірка MetaMask та інших Web3-гаманців через ethereum
         if (typeof window.ethereum !== 'undefined') {
             message += 'Криптогаманець виявлено! ';
-
+            
             if (window.ethereum.isMetaMask) {
                 message += 'Це MetaMask. ';
             } else {
-                message += 'Це не MetaMask, але інший Web3 гаманець. ';
+                message += 'Це інший Web3 гаманець, що використовує ethereum API. ';
             }
-        } else {
-            message += 'Криптогаманець не виявлено через об\'єкт ethereum. ';
         }
 
-        // Перевірка Trust Wallet за наявністю параметра 'dapp' у URL
+        // Перевірка Phantom (Solana гаманець)
+        if (typeof window.solana !== 'undefined' && window.solana.isPhantom) {
+            message += 'Користувач використовує Phantom гаманець! ';
+        }
+
+        // Перевірка Trust Wallet через параметри URL
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.has('dapp')) {
-            message += 'Користувач використовує Trust Wallet через параметр dapp у URL. ';
+            message += 'Trust Wallet виявлено через параметр dapp у URL. ';
         }
 
-        // Перевірка user agent на Trust Wallet
+        // Перевірка Trust Wallet через User Agent
         const userAgent = navigator.userAgent || navigator.vendor || window.opera;
         if (userAgent.includes("TrustWallet")) {
             message += 'Trust Wallet виявлено через User Agent. ';
         }
 
-        // Якщо не знайдено жодного гаманця
+        // Якщо жодного гаманця не виявлено
         if (!message.includes('виявлено')) {
             message = 'Криптогаманець не виявлено.';
         }
