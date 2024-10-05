@@ -3,77 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Криптогаманець детектор</title>
+    <title>Platform Detection</title>
     <style>
         body {
             font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
             margin: 0;
-            padding: 50px;
-            background-color: #f4f4f4;
+            background-color: #f5f5f5;
         }
-        #message {
+        .message-box {
             padding: 20px;
-            background-color: #ffeb3b;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .message-box h1 {
+            font-size: 24px;
             color: #333;
-            font-size: 1.2em;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            max-width: 600px;
-            margin: auto;
         }
     </style>
 </head>
 <body>
+    <div class="message-box">
+        <h1 id="platform-message">Detecting platform...</h1>
+    </div>
 
-<div id="message">Перевіряю наявність криптогаманця...</div>
+    <script>
+        function detectPlatform() {
+            const ua = navigator.userAgent || navigator.vendor || window.opera;
 
-<script>
-    function detectWallet() {
-        let messageElement = document.getElementById('message');
-        let message = '';
+            // 1. Detect Mobile App (Crypto Wallets)
+            const isMetaMaskApp = typeof window.ethereum !== 'undefined' && window.ethereum.isMetaMask;
+            const isTrustWalletApp = typeof window.trustwallet !== 'undefined';
+            const isPhantomApp = typeof window.solana !== 'undefined' && window.solana.isPhantom;
+            const isRabbyApp = typeof window.ethereum !== 'undefined' && window.ethereum.isRabby;
 
-        // Перевірка MetaMask та інших Web3-гаманців через ethereum
-        if (typeof window.ethereum !== 'undefined') {
-            message += 'Криптогаманець виявлено! ';
-            
-            if (window.ethereum.isMetaMask) {
-                message += 'Це MetaMask. ';
-            } else if (window.ethereum.isRabby) {
-                message += 'Це Rabby Wallet. ';
-            } else {
-                message += 'Це інший Web3 гаманець, що використовує ethereum API. ';
+            if (isMetaMaskApp || isTrustWalletApp || isPhantomApp || isRabbyApp) {
+                return "Mobile App (Crypto Wallet)";
+            }
+
+            // 2. Detect Mobile Web
+            const isMobile = /android|iPad|iPhone|iPod/.test(ua.toLowerCase());
+            if (isMobile) {
+                return "Mobile Web";
+            }
+
+            // 3. Detect Desktop
+            const isDesktop = !isMobile;
+            if (isDesktop) {
+                // 4. Detect Desktop with Wallet Extensions
+                const isMetaMaskInstalled = typeof window.ethereum !== 'undefined' && window.ethereum.isMetaMask;
+                const isRabbyInstalled = typeof window.ethereum !== 'undefined' && window.ethereum.isRabby;
+                const isPhantomInstalled = typeof window.solana !== 'undefined' && window.solana.isPhantom;
+                const isTrustWalletInstalled = typeof window.trustwallet !== 'undefined';
+
+                let detectedWallets = [];
+                if (isMetaMaskInstalled) detectedWallets.push("MetaMask");
+                if (isRabbyInstalled) detectedWallets.push("Rabby");
+                if (isPhantomInstalled) detectedWallets.push("Phantom");
+                if (isTrustWalletInstalled) detectedWallets.push("Trust Wallet");
+
+                if (detectedWallets.length > 0) {
+                    return "Desktop with Wallet Extension(s): " + detectedWallets.join(', ');
+                }
+
+                return "Desktop (No Wallet Extension Detected)";
             }
         }
 
-        // Перевірка Phantom (Solana гаманець)
-        if (typeof window.solana !== 'undefined' && window.solana.isPhantom) {
-            message += 'Користувач використовує Phantom гаманець! ';
-        }
-
-        // Перевірка Trust Wallet через параметри URL
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.has('dapp')) {
-            message += 'Trust Wallet виявлено через параметр dapp у URL. ';
-        }
-
-        // Перевірка Trust Wallet через User Agent
-        const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-        if (userAgent.includes("TrustWallet")) {
-            message += 'Trust Wallet виявлено через User Agent. ';
-        }
-
-        // Якщо жодного гаманця не виявлено
-        if (!message.includes('виявлено')) {
-            message = 'Криптогаманець не виявлено.';
-        }
-
-        // Виведення повідомлення на екран
-        messageElement.innerText = message;
-    }
-
-    // Викликаємо функцію перевірки при завантаженні сторінки
-    window.onload = detectWallet;
-</script>
-
+        // Call the function to detect the platform and update the message
+        const platform = detectPlatform();
+        document.getElementById('platform-message').innerText = "Platform Detected: " + platform;
+    </script>
 </body>
 </html>
