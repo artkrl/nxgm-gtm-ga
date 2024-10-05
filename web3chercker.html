@@ -36,20 +36,20 @@
         function detectPlatform() {
             const ua = navigator.userAgent || navigator.vendor || window.opera;
 
-            // 1. Detect Mobile App (Crypto Wallets)
-            const isMetaMaskApp = typeof window.ethereum !== 'undefined' && window.ethereum.isMetaMask;
-            const isTrustWalletApp = typeof window.trustwallet !== 'undefined';
-            const isPhantomApp = typeof window.solana !== 'undefined' && window.solana.isPhantom;
-            const isRabbyApp = typeof window.ethereum !== 'undefined' && window.ethereum.isRabby;
-
-            if (isMetaMaskApp || isTrustWalletApp || isPhantomApp || isRabbyApp) {
-                return "Mobile App (Crypto Wallet)";
-            }
-
-            // 2. Detect Mobile Web
+            // 1. Detect Mobile Web
             const isMobile = /android|iPad|iPhone|iPod/.test(ua.toLowerCase());
             if (isMobile) {
                 return "Mobile Web";
+            }
+
+            // 2. Detect Mobile App (Crypto Wallets)
+            const isMetaMaskApp = typeof window.ethereum !== 'undefined' && window.ethereum.isMetaMask && /Mobile/.test(ua);
+            const isTrustWalletApp = typeof window.trustwallet !== 'undefined' && /Mobile/.test(ua);
+            const isPhantomApp = typeof window.solana !== 'undefined' && window.solana.isPhantom && /Mobile/.test(ua);
+            const isRabbyApp = typeof window.ethereum !== 'undefined' && window.ethereum.isRabby && /Mobile/.test(ua);
+
+            if (isMetaMaskApp || isTrustWalletApp || isPhantomApp || isRabbyApp) {
+                return "Mobile App (Crypto Wallet)";
             }
 
             // 3. Detect Desktop
@@ -81,3 +81,4 @@
     </script>
 </body>
 </html>
+
