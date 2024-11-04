@@ -56,23 +56,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             const newPath = '/' + sectionId;
             history.pushState(null, '', newPath);
 
-            // Send a pageview event to Google Analytics
-            /*gtag('event', 'page_view', {
-                page_location: window.location.href,
-                page_path: newPath
-            });*/
         }
 
-        // Track back/forward navigation to handle pageviews
-       /* window.addEventListener('popstate', function() {
-            const sectionId = window.location.pathname.substring(1);
-            switchSection(sectionId);
-            gtag('event', 'page_view', {
-                page_location: window.location.href,
-                page_path: window.location.pathname
-            });
-        });
-        */
     </script>
 
 </body>
